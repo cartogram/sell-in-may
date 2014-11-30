@@ -1,0 +1,17 @@
+@import "blog.article";
+@import "blog.actions";
+
+.blog {
+    background:$white;
+}
+
+.blog__sidebar {
+    border-left:1px solid $grey-light;
+}
+
+
+@media #{$medium-up} {
+    .blog__acticles {
+        min-height:rem-calc(1275);
+    }
+}

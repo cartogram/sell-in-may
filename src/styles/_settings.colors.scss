@@ -1,0 +1,76 @@
+
+/*------------------------------------*\
+    $Colors
+
+    /**
+     * Add Base Colors
+     */
+
+    $white: #ffffff;
+    $black:#000000;
+    $grey-dark:#4d4d4d; //(used for most of the text except in the main nav and footer)
+    $grey-medium: #7c7c7e; //(used for the cross-out regular price if there's a sale)
+    $grey: #d7d7d7; //(used for main background color, cutouts)
+    $grey-light: #eee; //(used for main background color, cutouts)
+
+    $blue: #9ed0f9;
+    $blue-dark: #72abd6;
+
+    $orange: #fe934a;
+    $orange-dark: #e68541;
+
+    $green: #ace66a;
+    $green-medium: #8fd481;
+    $green-dark: #70b565;
+
+    /**
+     * Add Social Media Colors
+     */
+
+    $twitter: #b8dff3 !default;
+    $tumblr: #52718c !default;
+    $pinterest: #ee4d40 !default;
+    $facebook: #01254c !default;
+
+    /**
+     * Add Color Maps
+     */
+
+
+    $primary : $black;
+    $secondary : $white;
+
+    $color-active: $blue;
+
+
+    /**
+    * We have a mixin to generate our background and border colors.
+    */
+
+    @mixin color-setup($colorname: "black", $color: $black) {
+        /**
+       * Background
+       */
+       %background--#{$colorname}        { background: #{$color !important}  }
+
+
+        /**
+       * Borders
+       */
+       %border--#{$colorname}       { border-color:#{$color}  }
+       %border-right--#{$colorname}       { border-right:1px solid #{$color}  }
+       %border-left--#{$colorname}       { border-left:1px solid #{$color}  }
+       %border-top--#{$colorname}       { border-top:1px solid #{$color}  }
+       %border-bottom--#{$colorname}       { border-bottom:1px solid #{$color}  }
+
+
+        /**
+       * Color
+       */
+       .color--#{$colorname}       { color:#{$color}  }
+
+    }
+
+    @include color-setup('orange', $orange);
+    @include color-setup('blue', $blue);
+    @include color-setup('white', $white);

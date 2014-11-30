@@ -1,0 +1,150 @@
+<footer class="section section--footer section--with-border" role="contentinfo">
+    <div class="row ">
+
+        <div class="columns small-12 medium-4">
+
+            <ul class="nav nav--stacked vcard">
+                {% if settings.location_1_name != blank %}
+                <li class="location"><span class="nav__heading">{{ settings.location_1_name }}</span></li>
+                {% endif %}
+
+                {% if settings.location_1_address != blank %}
+                <li class="adr">{{ settings.location_1_address }}</li>
+                {% endif %}
+
+                {% if settings.location_1_phone != blank %}
+                <li class="tel">{{ settings.location_1_phone }}</li>
+                {%endif%}
+
+                {% if settings.location_1_email != blank %}
+                <li><a class="email" href="mailto:{{ settings.location_1_email }}">{{ settings.location_1_email }}</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+
+        <div class="columns small-12 medium-4">
+
+            <ul class="nav nav--stacked vcard">
+                {% if settings.location_2_name != blank %}
+                <li class="location"><span class="nav__heading">{{ settings.location_2_name }}</span></li>
+                {% endif %}
+
+                {% if settings.location_2_address != blank %}
+                <li class="adr">{{ settings.location_2_address }}</li>
+                {% endif %}
+
+                {% if settings.location_2_phone != blank %}
+                <li class="tel">{{ settings.location_2_phone }}</li>
+                {%endif%}
+
+                {% if settings.location_2_email != blank %}
+                <li><a class="email" href="mailto:{{ settings.location_2_email }}">{{ settings.location_2_email }}</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+
+        <div class="columns small-12 medium-4">
+
+            <ul class="nav nav--stacked">
+                <li class="location nav__heading">Hours</li>
+
+                {% if settings.hours_weekday != blank %}
+                <li><span class="nav__label">Mon to Fri:</span> {{ settings.hours_weekday }}</li>
+                {% endif %}
+
+
+
+                {% if settings.hours_sat != blank %}
+                <li><span class="nav__label">Sat:</span> {{ settings.hours_sat }}</li>
+                {% endif %}
+                {% if settings.hours_sun != blank %}
+                <li><span class="nav__label">Sun:</span> {{ settings.hours_sun }}</li>
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+</footer>
+<footer class="section section--footer" role="contentinfo">
+    <div class="row">
+
+
+
+        {% if settings.footer_quicklinks_enable %}
+        <div class="columns small-12 medium-4">
+            <ul class="nav nav--linklist soft-double--right">
+                {% for link in linklists[settings.footer_quicklinks_linklist].links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if settings.footer_copyright %}
+        <div class="columns small-12 medium-4 ">
+            <p class="small text--center">{{ settings.footer_copyright }}</p>
+        </div>
+        {% endif %}
+
+        <div class="columns small-6 medium-2">
+
+            <ul class="nav nav--stacked">
+
+                {% if settings.contact_email != blank %}
+                <li><a class="email" href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></li>
+                {% endif %}
+
+                {% if settings.contact_phone != blank %}
+                <li>{{ settings.contact_phone }}</li>
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+
+
+        {% if settings.footer_social_enable %}
+        <div class="columns small-6 medium-2">
+            {% comment %}
+            Loop through the social network links
+            {% endcomment %}
+            <ul class="nav nav--social text-right">
+                {% if settings.social_twitter_link != blank %}
+                <li>
+                    <a class="link--with-image" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+                        <span class="screen-text">Twitter</span>
+                        <svg class="svg--twitter"><use xlink:href="#twitter" /></svg>
+                    </a>
+                </li>
+                {% endif %}
+                {% if settings.social_facebook_link != blank %}
+                <li>
+                    <a class="link--with-image" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+                        <span class="screen-text">Facebook</span>
+                        <svg class="svg--facebook"><use xlink:href="#facebook" /></svg>
+
+                    </a>
+                </li>
+                {% endif %}
+                {% if settings.social_instagram_link != blank %}
+                <li>
+                    <a class="link--with-image" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Facebook">
+                        <span class="screen-text">Instagram</span>
+                        <svg class="svg--instagram"><use xlink:href="#instagram" /></svg>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+
+
+    </div>
+</footer>

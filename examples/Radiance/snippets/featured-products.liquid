@@ -1,0 +1,21 @@
+{% if settings.featured_collection_visible %}
+  {% unless settings.featured_collection_name == blank or collections[settings.featured_collection_name].empty? or collections[settings.featured_collection_name].products_count == 0 %}
+  <section id="featured-products" class="clearfix {% if template == "search" or settings.show_right_column == false %}featured-narrow{% endif %}">
+    <header class="section-details clearfix">
+      <h2 class="section-title">{{ settings.featured_collection_title }}</h2>
+    </header>  
+		<ul class="product-grid clearfix">
+    {% for product in collections[settings.featured_collection_name].products limit: featured-products %}
+      <li
+        {% if featured-products == 4 %}
+        {% cycle '', '', '', ' class="last-in-row"' %}
+        {% else %}
+        {% cycle '', '', '', '', ' class="last-in-row"' %}
+        {% endif %}>
+        {% include 'product-grid-item' %}
+      </li>
+        {% endfor %}
+     </ul>
+  </section>
+  {% endunless %}
+{% endif %}

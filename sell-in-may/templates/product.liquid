@@ -1,0 +1,292 @@
+
+{% comment %}
+
+Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
+and allow search engines to easily understand what the content is.
+
+For more information on these Scheme.org tags, visit:
+- http://schema.org/docs/gs.html
+
+{% endcomment %}
+
+{% comment %}
+Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available  %}
+{% assign sold_out = false %}
+{% endif %}
+
+
+{% assign new = false %}
+{% if product.tags contains 'New' or product.tags contains 'new'  %}
+{% assign new = true %}
+{% endif %}
+
+<section class="section--product-single section" itemscope itemtype="http://schema.org/Product"
+zum-waypoint="waypoints"
+down="sidebar.on"
+up="sidebar.off"
+>
+
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+    <section  class="section--sidebar section--fill"
+    ng-class="{
+        'is-fixed' : waypoints.sidebar.on,
+        'is-static' : waypoints.sidebar.off,
+        'at-bottom' : waypoints.sidebar.bottom
+    }"
+
+    >
+        <div class="row">
+            <div class="columns medium-push-8 medium-4">
+                <div cg-fill-view-port class="hard product__info tile tile--product"
+                ng-class="{
+                    'product-description-shown' : showDescriptionInfo
+                }"
+                >
+                    <span itemprop="price" class="soft-triple--top make-block price price--beta">
+                        {{ product.price | money }}
+                        {% if on_sale %}<span class="price--sale price--delta ">{{ product.compare_at_price | money }}</span>{% endif %}
+                    </span>
+
+                    <h1 class="product__title soft soft-double--top text-center" itemprop="name">{{ product.title }}</h1>
+                    <div class="product__description formatted text-left" itemprop="description">
+                        <div class="product__description__inner">{{ product.description }}</div>
+                        <a class="product__description__close" ng-click="showDescriptionInfo = !showDescriptionInfo">
+                            <span class="screen-text">close</span>
+                            <svg class=" svg--close"><use xlink:href="#close" /></svg>
+                        </a>
+                    </div>
+                    {% capture text %}{{ product.description | strip_html }}{% endcapture %}
+                    {% capture truncated_text %}{{ text | truncatewords: 40, '' }}{% endcapture %}
+                    <p class="soft flush--bottom push--top ">{{ product.description | strip_html | truncatewords: 40 }}</p>
+
+                    {% if text != truncated_text %}
+                    <p ><a ng-click="showDescriptionInfo = !showDescriptionInfo">Additional Product Info</a></p>
+                    {% endif %}
+
+
+
+
+                    <span class="tile__label">
+                        {{product.vendor}}
+                    </span>
+
+
+
+                    <span class="tile__flags">
+                        {% if on_sale %}
+                        <span class="tile__flag flag--sale">Sale</span>
+                        {% endif %}
+
+                        {% if new %}
+                        <span class="tile__flag flag--new">New</span>
+                        {% endif %}
+
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section--sidebar__bottom"
+    ng-class="{
+        'is-fixed' : waypoints.sidebar.on,
+        'is-static' : waypoints.sidebar.off,
+        'at-bottom' : waypoints.sidebar.bottom
+    }">
+        <div class="row">
+            <div class="columns medium-push-8 medium-4">
+                <div class="product__actions" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+                    {% comment %}
+                    Get first variant, or deep linked one
+                    {% endcomment %}
+                    {% assign variant = product.selected_or_first_available_variant %}
+
+                    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+
+                    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+                    {% comment %}
+                    ID addToCartForm is a selector for the ajaxify cart plugin
+                    {% endcomment %}
+                    <form action="/cart/add" method="post" enctype="multipart/form-data" class="" id="addToCartForm">
+
+                        {% comment %}
+                        Add product variants as a dropdown.
+                        - By default, each variant (or combination of variants) will display as its own <option>
+                        - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
+
+                        You can leverage jQuery to add a callback on page load and each time the select element changes:
+                        - Include option_selection.js (as seen at the bottom of this file)
+                        - This allows you to use JavaScript anytime the variant dropdown changes
+                        - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+
+                        For more information on products with multiple options, visit:
+                        - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
+
+                        {% endcomment %}
+
+                        <section class="product__select-box push--bottom">
+                            <label class="screen-text">Product Variants</label>
+
+                            <select name="id" id="productSelect" class="cs-select cs-skin-underline product-variants">
+                                {% for variant in product.variants %}
+                                {% if variant.available %}
+
+                                {% comment %}
+                                Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
+                                {% endcomment %}
+                                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+
+                                {% else %}
+                                <option disabled="disabled">
+                                    {{ variant.title }} - Sold out
+                                </option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </section>
+
+                        <button type="submit" name="add" class="btn btn--full btn--primary text-center">
+                            Add to Cart
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row">
+        <div class="columns medium-8">
+            {% comment %}
+            Create thumbnails if we have more than one product image
+            {% endcomment %}
+            {% if product.images.size > 0 %}
+            <ul class="product__images">
+                {% for image in product.images %}
+                <li cg-load-watch class="product__image">
+                    {%comment%}    <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}"> {%endcomment%}
+                    <img bow-lazy src="{{'loading-balls.svg' | asset_url }}" alt="{{ image.alt | escape }}" data-original="{{ image.src | img_url: '1024x1024' }}">
+
+                </li>
+                {% endfor %}
+
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+{% include 'next-prev' %}
+
+{% comment %}
+To take advantage of a callback on the select dropdown, add option_selection.js
+and customize the JS below as you need. This is only needed on pages where
+product variants are accessible, so doesn't need to live in theme.liquid.
+
+Currently, the code below does:
+- Hides your <select> tag from above
+- Breaks out the product variants into separate product options, if more than one exists
+- Generates a <select> tag for each product option
+
+Callback notes:
+- Keep the callback available to the global scope (window.selectCallback) so that advanced
+addons can override it.
+* E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
+
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+{% endcomment %}
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+<script>
+// var selectCallback = function(variant, selector) {
+//
+//     var $addToCart = $('#addToCart'),
+//     $productPrice = $('#productPrice'),
+//     $comparePrice = $('#comparePrice'),
+//     $quantityElements = $('.quantity-selector, label + .js-qty'),
+//     $addToCartText = $('#addToCartText'),
+//     $featuredImage = $('#productPhotoImg');
+//
+//     if (variant) {
+//
+//         // Update variant image, if one is set
+//         // Call timber.switchImage function in shop.js
+//         if (variant.featured_image) {
+//             var newImg = variant.featured_image,
+//             el = $featuredImage[0];
+//             Shopify.Image.switchImage(newImg, el, timber.switchImage);
+//         }
+//
+//         // Select a valid variant if available
+//         if (variant.available) {
+//             // We have a valid product variant, so enable the submit button
+//             $addToCart.removeClass('disabled').prop('disabled', false);
+//             $addToCartText.text('Add to Cart');
+//             $quantityElements.show();
+//         } else {
+//             // Variant is sold out, disable the submit button
+//             $addToCart.addClass('disabled').prop('disabled', true);
+//             $addToCartText.text('Sold Out');
+//             $quantityElements.hide();
+//         }
+//
+//         // Regardless of stock, update the product price
+//         $productPrice.html( Shopify.formatMoney(variant.price, "{{ shop.money_format }}") );
+//
+//         // Also update and show the product's compare price if necessary
+//         if ( variant.compare_at_price > variant.price ) {
+//             $comparePrice
+//             .html('Compare at: ' + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}"))
+//             .show();
+//         } else {
+//             $comparePrice.hide();
+//         }
+//
+//     } else {
+//         // The variant doesn't exist, disable submit button.
+//         // This may be an error or notice that a specific variant is not available.
+//         // To only show available variants, implement linked product options:
+//         //   - http://docs.shopify.com/manual/configuration/store-customization/advanced-navigation/linked-product-options
+//         $addToCart.addClass('disabled').prop('disabled', true);
+//         $addToCartText.text('Unavailable');
+//         $quantityElements.hide();
+//     }
+// };
+//
+// jQuery(function($) {
+//     new Shopify.OptionSelectors('productSelect', {
+//         product: {{ product | json }},
+//         onVariantSelected: selectCallback,
+//         enableHistoryState: true
+//     });
+//
+// //     // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+// //     {% if product.options.size == 1 and product.options.first != 'Title' %}
+// //     $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+// //     {% endif %}
+// //
+// //     // Hide selectors if we only have 1 variant and its title contains 'Default'.
+// //     {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+// //     $('.selector-wrapper').hide();
+// //     {% endif %}
+// });
+</script>

@@ -1,0 +1,9 @@
+.blog__actions {
+    position:absolute;
+    background:$orange;
+    left:0;
+    bottom:0;
+    right:0;
+    padding:$base-spacing-unit *2 $base-spacing-unit *2 $base-spacing-unit ;
+    z-index:index($product, product__actions);
+}

@@ -1,0 +1,3 @@
+[submodule "examples/timber"]
+	path = examples/timber
+	url = https://github.com/Shopify/Timber.git

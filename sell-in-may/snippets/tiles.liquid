@@ -1,0 +1,60 @@
+<div class="section section--hompage-tiles">
+    <div class="row">
+        {% for i in (1..2) %}
+        {% capture tile %}tile_{{ i }}{% endcapture %}
+        {% capture tile_link %}tile_{{ i }}_link{% endcapture %}
+        {% capture tile_link_text %}tile_{{ i }}_link_text{% endcapture %}
+        {% capture tile_img %}tile_{{ i }}.jpg{% endcapture %}
+        {% capture tile_img_alt %}tile_{{ i }}_alt{% endcapture %}
+        {% capture tile_img_caption %}tile_{{ i }}_caption{% endcapture %}
+        {% capture tile_label %}tile_{{ i }}_label{% endcapture %}
+        {% if settings[tile] %}
+        <div class="columns small-12 medium-6 gut-top tile tile--with-height">
+            <a href="{{ settings[tile_link] }}" class="tile__link ">
+                <figure class="tile__figure overlay"  style="background-image:url({{ tile_img | asset_url }})">
+                    {% unless settings[tile_img_caption] == blank %}
+                    <figcaption class="overlay__text text-left">
+                        <h2 class="caption__heading">{{ settings[tile_img_caption] }}</h2>
+                        <p class="soft--top">{{ settings[tile_link_text] }}</p>
+                    </figcaption>
+                    {% endunless %}
+                </figure>
+                <span class="tile__label ">{{ settings[tile_label] }}</span>
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row block-wrap">
+        {% for i in (3..4) %}
+        {% capture tile %}tile_{{ i }}{% endcapture %}
+        {% capture tile_link %}tile_{{ i }}_link{% endcapture %}
+        {% capture tile_img %}tile_{{ i }}.jpg{% endcapture %}
+        {% capture tile_img_alt %}tile_{{ i }}_alt{% endcapture %}
+        {% capture tile_img_caption %}tile_{{ i }}_caption{% endcapture %}
+        {% capture tile_label %}tile_{{ i }}_label{% endcapture %}
+        {% if settings[tile] %}
+        <div class="columns small-6 medium-4 gut-top tile tile--with-height--small">
+            <a href="{{ settings[tile_link] }}" class="tile__link" >
+                <figure class="tile__figure" style="background-image:url({{ tile_img | asset_url }})">
+                </figure>
+                <span class="tile__label ">{{ settings[tile_label] }}</span>
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% if settings.newsletter_enable %}
+        <div class="columns small-12 medium-4 block">
+            <div class="block__content">
+                <h5 class="text--with-icon color--white soft-half--left push--bottom">
+                    <span class="text--with-icon__icon"><svg class="svg--bike"><use xlink:href="#bike" /></svg></span>
+                    <span class="text--with-icon__text">{{settings.newsletter_title }}</span>
+                </h5>
+                {% include 'newsletter-form' %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>

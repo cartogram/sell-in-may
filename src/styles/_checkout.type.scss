@@ -1,0 +1,90 @@
+body {
+    font-family:sans-serif;
+    color: $grey-dark;
+}
+
+//h1
+#cost {
+    color: $grey-dark;
+    font-weight:bold;
+    font-size: 60px;
+    padding: 20px 0 10px;
+}
+
+//h2
+#thumbs h3.plisthead {
+    color: $grey-dark;
+    font-weight:bold;
+    font-size: 16px;
+    padding-top:20px;
+}
+
+//h3
+#content #email label,
+
+#products h2,
+#content h3{
+    color: $grey-dark;
+    font-weight:bold;
+    text-transform: uppercase;
+    letter-spacing: rem-calc(2);
+    font-size: 11px !important;
+    margin-bottom: 10px !important;
+}
+
+
+//h4
+#buttons small,
+label,
+#overview #tax_span,
+#thumbs span.plist-line-price,
+#billing-is-shipping td label,
+.field-with-errors .error-message,
+#marketing-box .sst label,
+span.hint a.closure-lightbox,
+#discount-errors {
+    color: $grey-dark;
+    font-weight:bold !important;
+    font-size:12px !important;
+}
+
+.field-with-errors .error-message,
+#discount-errors {
+    color:$orange !important;
+    padding-bottom:5px;
+}
+
+//h5
+
+#shipping-same {
+    margin-top: 17px;
+}
+.shopify-dialog-title-text,
+#steps,
+#shipping-same {
+    background:$grey;
+    color: $white;
+    font-weight:bold;
+    padding:4px 10px;
+    text-align:center;
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing: rem-calc(1);
+
+}
+
+.shopify-dialog-title-text,
+#steps {
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translate(-50%, 0);
+}
+#steps {
+    position:fixed;
+
+}
+
+.shopify-dialog-title-text {
+    background:$blue;
+}

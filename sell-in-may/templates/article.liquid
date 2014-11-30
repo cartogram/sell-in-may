@@ -1,0 +1,16 @@
+<section class="section section--blog-single">
+    <div class="row blog">
+        <article class="columns medium-8 medium-push-1 large-push-2 large-7 xlarge-6 small-push-1 small-10">
+            <h1 class="giga">{{ article.title }}</h1>
+            {% include 'article-meta' %}
+            <div class="formatted soft--top soft-double--bottom">
+                {{ article.content }}
+            </div>
+        </article>
+    </div>
+</section>
+{% if blog.next_article or blog.previous_article %}
+
+    {% include 'next-prev-blog' %}
+
+{% endif %}

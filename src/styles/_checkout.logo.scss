@@ -1,0 +1,12 @@
+$logo-path: "{{ 'logo.png' | asset_url }}";
+
+#logo {
+    display:block;
+    height:140px;
+    width:100%;
+    background-image: url($logo-path);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:50% 50%;
+    margin-top:40px;
+}

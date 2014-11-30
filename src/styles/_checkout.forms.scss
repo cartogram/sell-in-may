@@ -1,0 +1,193 @@
+.form {
+    td {
+        display:table-cell;
+    }
+}
+
+
+
+.text-input {
+    border:1px solid $grey-light;
+    outline: 0;
+    background-color: $white;
+    color: $grey-dark;
+    padding: 15px 15px;
+    font-size: 14px;
+    box-sizing:border-box;
+    border-radius:2px;
+    transition:border $base-timing $base-easing;
+    &:focus {
+        border-color:$green;
+    }
+}
+
+#email input,
+.form td input.short,
+#billing_address_address1,
+#billing_address_address2,
+#shipping_address_address1,
+#shipping_address_address2,
+#shipping_address_city,
+#billing_address_city,
+input.medium,
+#credit_card_first_name,
+#credit_card_last_name,
+#credit_card_number,
+#credit-card-info input,
+#credit_card_verification_value,
+#create-account form input#password,
+#create-account form input#password_confirmation,
+#discount_code,
+#gift_card_code {
+
+    @extend .text-input;
+}
+
+.form td.lbl {
+    padding-top:$base-spacing-unit;
+    width:120px !important;
+}
+
+
+select {
+    background: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+    height: 40px;
+    outline: none;
+    border: 1px solid $grey-light;
+    display: inline-block;
+    padding: 10px 30px 10px 10px;
+}
+
+.form ul.inline {
+    margin: 20px 0 20px;
+    overflow: hidden;
+    label {
+        margin-bottom:10px;
+    }
+}
+
+#billing-is-shipping {
+    display:table-row;
+    padding: 20px 20px 50px;
+    td {
+        display:table-cell;
+        padding:20px 0 0 0;
+        input {
+            display:inline-block;
+        }
+        label {
+            display:inline-block;
+        }
+    }
+}
+
+#buttons {
+    text-align:center;
+    padding:40px 0;
+}
+#buttons small {
+    padding-left:$base-spacing-unit;
+    display:inline-block;
+}
+#buttons input,
+#discounts-body input[type=submit] {
+    display:inline-block;
+    vertical-align:baseline;
+    white-space:nowrap;
+    font-family:inherit;
+    font-size:100%;
+    cursor:pointer;
+    border:none;
+    margin:0;
+    padding-top:   0;
+    padding-bottom:0;
+    line-height:4 !important;
+    padding-right:2em !important;
+    padding-left: 2em !important;
+    padding-top:1px;
+    background:none;
+    transition:all $base-timing $base-easing;
+    z-index: 1;
+    width:auto;
+    border-radius:$site-border-radius;
+    font-weight:$font-weight-bold ;
+    text-transform: uppercase;
+    letter-spacing: rem-calc(2);
+    font-size: $micro;
+    background:$blue !important;
+    border-color:$blue !important;;
+    color:$white !important;;
+    &:hover {
+        background:$blue-dark;
+        border-color:$blue-dark;
+        color:$white !important;
+    }
+    &:active {
+        background:$blue;
+        border-color:$blue;
+    }
+
+
+
+}
+
+#credit_card_month,
+#credit_card_number,
+#credit_card_first_name {
+    margin-bottom:20px;
+}
+
+#payment,
+#discounts-body {
+    margin-bottom:60px;
+}
+
+#payment p,
+#payment-method p {
+    max-width:660px;
+    line-height:1.6;
+}
+
+//Errors States
+
+#content .field-with-errors {
+    margin-bottom: 20px;
+    input {
+        border-color:$orange;
+    }
+}
+
+#credit-card-info label {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+#discounts-body label {
+    margin-bottom: 5px;
+    display:none;
+}
+
+#credit_card_month + label {
+    display:none;
+}
+
+img.credit-card {
+    margin-right:5px;
+}
+
+#payment-methods li {
+    margin-bottom:20px;
+    .visually-hidden {
+        display:none;
+    }
+    input,
+    label {
+        display:inline-block;
+        margin-right:5px;
+    }
+    * {
+        vertical-align: middle;
+    }
+}

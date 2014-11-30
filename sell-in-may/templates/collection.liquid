@@ -1,0 +1,67 @@
+{% comment %}
+
+For more information on collection tags:
+- http://docs.shopify.com/themes/liquid-variables/collection
+
+{% endcomment %}
+
+{% paginate collection.products by 24 %}
+
+<script>
+    {% if collection.current_vendor %}
+        console.log('I am on an automatic vendor collection page.');
+    {% elsif collection.handle == 'all' %}
+        console.log('I am on the automatic or regular /collections/all page.');
+    {% elsif collection.handle %}
+        console.log('I am on a regular collection page (smart or custom).');
+    {% elsif collection.current_type %}
+        console.log('I am on an automatic product type collection page.');
+    {% else %}
+        console.log('I don\'t know where i am.');
+    {% endif %}
+</script>
+
+<section class="section collection section--collection">
+
+
+{% include 'collection-filters' %}
+
+    <div class="row">
+        <div class="columns small-12">
+            <ul class="collection__grid">
+                {% comment %}
+                Loop through our products in the current collection.
+                See the snippet 'product-grid-item' for the layout.
+                {% endcomment %}
+                {% for product in collection.products %}
+
+                <li class="collection__grid__item">
+                    {% include 'product-grid-item' %}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </div>
+
+    {% if collection.products_count < 1%}
+        <div class="row push--bottom" >
+            {% comment %}
+            It's likely people won't have items in the cart sometimes.
+            Do something fun here, it's a great chance to show your company's human side.
+            {% endcomment %}
+            <div class="columns small-12 text-center push--bottom"  >
+                <h1 class="soft-double--bottom push--bottom">Sorry, that filter does not have any products.</h1>
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+
+    {% include 'pagination' %}
+
+
+
+{% endpaginate %}

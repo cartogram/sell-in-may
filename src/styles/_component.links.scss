@@ -1,0 +1,84 @@
+
+    /**
+    * Import Mixins to provide modules with exports.
+    * List other required modules here.
+    */
+
+    @import "component.mixins";
+
+    /*------------------------------------*\
+
+    /**
+    * Variables
+    */
+
+
+    /*------------------------------------*\
+
+    /**
+    * @title Links
+    */
+
+
+    /**
+    *   All Logic pertaining to the top back horizontal navigation
+    *   should go in this file.
+    */
+
+    /*------------------------------------*\
+
+    */
+
+    @include exports("links") {
+
+    /**
+    * @name A
+    * @description Default Link Styles
+    * @state :hover,&:focus - hover,& focus state
+    * @markup
+    *   <a>Markup</a>
+    */
+
+    a {
+        text-decoration: none;
+        line-height: inherit;
+        transition:color $base-timing $base-easing;
+        cursor:pointer;
+        color:$black;
+        img {
+            border:none;
+        }
+        &:hover {
+            color:$color-active;
+        }
+
+    }
+
+    li a,
+    p a {
+        border-bottom:1px solid;
+        &:hover {
+            color:$blue;
+        }
+    }
+
+    .link--with-image {
+        border:none;
+    }
+
+    .link--next-prev {
+        @extend .epsilon;
+        display:block;
+        padding:$base-spacing-unit;
+        margin-bottom:rem-calc(5);
+        position:relative;
+        a {
+            border:none;
+        }
+
+    }
+
+    .link--disabled {
+        color:$grey;
+    }
+    }

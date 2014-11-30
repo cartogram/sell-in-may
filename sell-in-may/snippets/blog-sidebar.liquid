@@ -1,0 +1,24 @@
+<div cg-fill-view-port >
+
+    <span class="tile__label">Tags</span>
+        <!-- {% if current_tags %}
+        <h1>{{ blog.title | link_to: blog.url }} &mdash; </h1>
+        {% else %}
+        <h1>{{ blog.title }}</h1>
+        {% endif %} -->
+        {% comment %}
+        Blog tags
+        {% endcomment %}
+        {% if blog.all_tags.size > 0 %}
+        <ul class="soft-double push--top soft-double text-center list--bulleted list--bulleted--horizontal ">
+            {% for tag in blog.all_tags %}
+                {% if current_tags contains tag %}
+                <li>{{ tag }}</li>
+                {% else %}
+                <li>{{ tag | link_to_tag: tag }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+</div>

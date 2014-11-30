@@ -1,0 +1,110 @@
+
+
+/*----------------------------------------
+LAYOUT
+*----------------------------------------*/
+
+#main,
+#container.slim
+#main,
+#footer,
+#container.slim #footer {
+    width: 90% !important;
+    max-width: 1140px !important;
+    background: #fff !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    text-align:left;
+}
+
+#products {
+    float: left;
+    border: 0;
+    width: 65%;
+    max-width: 1140px;
+    margin: 30px auto;
+    padding: 30px 0;
+    border-right:1px solid $grey-light;
+}
+    #thumbs {
+        width:100%;
+        div {
+            float:left;
+            margin-right: 20px;
+        }
+        td {
+            clear:both;
+        }
+    }
+
+
+
+
+#wallet {
+    width: 25%;
+    float: right;
+    padding: 20px 0 !important;
+    background-color: #fff !important;
+    text-align: left;
+    margin: 30px auto;
+}
+
+
+#order_email {
+    max-width:65% !important;
+}
+
+.gleft {
+    float: left;
+    width: 49%;
+    padding-top:40px;
+    @media screen and (min-width: 500px) {
+        float: left;
+        width: 49%;
+    }
+    #payment-method & {
+        padding-top:0;
+        width:30%;
+    }
+}
+
+    .form ul.inline li {
+        display: block;
+        float: left;
+        margin-right: 15px;
+    }
+
+.gright {
+    margin-left: 49%;
+    padding-left: 10px;
+    width: 47%;
+    padding-left: 14px;
+    padding-top:40px;
+    @media all and (min-width: 500px) {
+        margin-left: 49%;
+        width: 47%;
+        #payment-method & {
+            margin-left:30%;
+        }
+    }
+
+
+}
+
+#footer p {
+    text-align:center;
+    font-size:10px;
+    padding:50px;
+}
+
+
+#credit-card-info {
+    margin-top:40px;
+}
+
+#marketing-box {
+    margin: 50px 0 0;
+    border-top: 1px solid $grey-light;
+    padding: 30px 0 30px 30%;
+    border-bottom: 1px solid $grey-light;
+}

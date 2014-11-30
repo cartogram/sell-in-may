@@ -1,0 +1,170 @@
+{% comment %}
+
+This is your /cart template. If you are using the Ajaxify Cart plugin,
+your form (with action="/cart") layout will be used in the drawer/modal.
+
+For info on test orders:
+- General http://docs.shopify.com/manual/your-store/orders/test-orders
+- Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+{% if cart.item_count > 0 %}
+<form action="/cart" method="post" novalidate ng-controller="latCartCtrl">
+
+    <section class="section section--cart-items " ng-class="{'is-loading' : isBusy}">
+
+        <div class="row cart__row" ng-repeat="item in cart.items">
+
+            <div class="columns small-12 medium-5 large-7 text-center medium-text-left">
+                <div class="row">
+                    <div class="columns small-12 medium-3 ">
+
+                        <a class="cart__image" >
+                            <img ng-src="{[{item.image | shopifyResizeImageMedium }]}"  alt="{[{ item.title }]}">
+                            <span class="cart__vendor" ng-bind="item.vendor"></span>
+
+                        </a>
+
+
+                    </div>
+
+                    <div class="columns small-12 medium-9 ">
+
+                        <a ng-href="{[{item.url}]}" ng-bind="item.title" class="alpha cart__text" ></a>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="columns small-12 medium-3 large-2 small-text-center  text-right">
+                <span class="cart__line-price price--beta price " ng-cloak> {[{ item.line_price | shopifyFormatMoney }]}</span>
+            </div>
+            <div class="columns small-12 medium-4 large-3 ">
+                <div class="row">
+
+                    <div class="columns small-8 text-center ">
+                        <div class="cart__quantity soft">
+                            <span class=" cart__quantity__num " ng-cloak> {[{item.quantity}]}</span>
+                            <span class=" cart__quantity__multiplier  epsilon"> x <span class=" " ng-cloak>{[{item.price | shopifyFormatMoney}]}</span></span>
+                        </div>
+
+                        <nav class="cart__adjust-quantity">
+                            <a class="cart__minus" lat-cart-adjust action="minus" id="{[{item.id}]}"  quantity="item.quantity">
+                                <span class="screen-text">Minus</span>
+                                <svg class="cart__icon svg--minus"><use xlink:href="#minus" /></svg>
+                            </a>
+                            <a class="cart__add" lat-cart-adjust action="add" id="{[{item.id}]}"  quantity="item.quantity">
+                                <span class="screen-text">Add</span>
+                                <svg class="cart__icon svg--plus"><use xlink:href="#plus" /></svg>
+                            </a>
+
+                        </nav>
+
+
+                    </div>
+
+                    <div class="columns small-4 text-center">
+
+                        <nav class="cart__adjust-quantity cart__adjust-quantity--remove ">
+
+                            <a class="cart__remove" href="/cart/change?line={[{ $index + 1}]}&amp;quantity=0" id="{{ item.id }}">
+                                <span class="screen-text">Remove</span>
+                                <svg class="cart__icon svg--close"><use xlink:href="#close" /></svg>
+                            </a>
+
+                        </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </section>
+
+    <section class="section--cart-total section--with-border">
+
+        <div class="cart__row--total" >
+
+            <div class="columns small-12 text-center " ng-hide="cart.items" >
+                <h1 class="soft-double--bottom">It appears that your cart is currently empty.</h1>
+                <a class="btn btn--full btn--primary with-max" href="/collections/all">Go add some products</a>
+            </div>
+
+            <div class="columns small-12 text-center " ng-show="cart.items">
+
+
+                <span class="epsilon ">cart total</span>
+
+                <span class="cart__total soft-half--top make-block price price--alpha " ng-cloak>{[{ cart.total_price | shopifyFormatMoney }]}</span>
+
+                <div class="columns small-12 text-center soft-double">
+
+                    {% comment %}
+                    name="update" is required for the update button to work
+
+                    <input type="submit" name="update" class="btn btn--full btn--tertiary push--bottom" value="Update cart">
+                    {% endcomment %}
+                    {% comment %}
+                    name="checkout" is required for the submit button to work
+                    {% endcomment %}
+                    <input type="submit" name="checkout" class="btn btn--full btn--primary with-max" value="Check out">
+
+                    {% comment %}
+                    Paypal and Google checkout buttons
+                    {% endcomment %}
+                    {% if additional_checkout_buttons %}
+                    <p class="soft--top flush--bottom">{{ content_for_additional_checkout_buttons }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="columns small-12 text-center ">
+                    {% comment %}
+                    Optional, add a textarea for special notes
+                    - Your theme settings can turn this on or off. Default is on.
+                    - Make sure you have name="note" for the message to be submitted properly
+                    {% endcomment %}
+                    {% if settings.cart_notes_enable %}
+                    <label class="screen-text" for="cartSpecialInstructions">Special instructions for seller</label>
+                    <textarea placeholder="Special instructions for seller" name="note" class="input-full" id="cartSpecialInstructions">{{ cart.note }}</textarea>
+                    {% else %}
+                    <ul class="nav text-center">
+                        <li>Questions about this order?</li>
+                        <li>Email us at <a href="mailto:{{settings.contact_email}}">{{settings.contact_email}}</a></li>
+                        <li>Call us at {{settings.contact_phone}}</li>
+                    </ul>
+                    {% endif %}
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+        </section>
+
+    </form>
+
+    {% else %}
+    <section class="section--cart-total section--with-border">
+
+        <div class="cart__row--total" >
+            {% comment %}
+            It's likely people won't have items in the cart sometimes.
+            Do something fun here, it's a great chance to show your company's human side.
+            {% endcomment %}
+            <div class="columns small-12 text-center "  >
+                <h1 class="soft-double--bottom">It appears that your cart is currently empty.</h1>
+                <a class="btn btn--full btn--primary with-max" href="/collections/all">Go add some products</a>
+            </div>
+        </div>
+    </section>
+
+    {% endif %}

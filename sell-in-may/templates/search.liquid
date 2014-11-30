@@ -1,0 +1,78 @@
+{% comment %}
+
+The {{ content_for_header }} in theme.liquid will output the following stylesheet just for this page:
+- <link rel="stylesheet" href="/global/search.css" type="text/css">
+
+It has a few helpers in there, but this theme writes its own styles so there
+are no dependencies or conflicts. You can ignore that file.
+
+Return only products or pages in results:
+- http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+- Or manually add type=product or type=page to the search URL as a parameter
+
+{% endcomment %}
+
+{% comment %}
+If you're only showing products with the method above, why not show them off in a grid instead?
+Set grid_results to true and see your updated results page for the new layout.
+{% endcomment %}
+{% assign grid_results = false %}
+
+{% comment %}
+Check to enforce respond.js
+{% endcomment %}
+
+{% if search.performed %}
+{% paginate search.results by 10 %}
+
+<section class="section section--search-results">
+    <div class="row">
+
+    {% comment %}
+    Avoid accessing search.results before the opening paginate tag.
+    If you do, the pagination of results will be broken.
+    {% endcomment %}
+
+    {% comment %}
+    We don't have any results to show. Feel free to show off featured products
+    or suggested searches here.
+    {% endcomment %}
+    {% if search.results_count == 0 %}
+
+    <h1 class="h2 text-center">Your search for "{{ search.terms }}" did not yield any results.</h1>
+
+    {% else %}
+
+    <div class="columns small-12">
+        <ul class="collection__grid">
+            {% comment %}
+            Loop through our products in the current collection.
+            See the snippet 'product-grid-item' for the layout.
+            {% endcomment %}
+            {% for product in search.results %}
+            <li class="collection__grid__item">
+                {% include 'product-grid-item' %}
+            </li>
+            {% else %}
+
+            <p>Sorry, there are no products matching your search.</p>
+
+            {% endfor %}
+
+        </ul>
+    </div>
+
+    {% endif %}
+
+
+
+
+
+    </div>
+</section>
+    {% include 'pagination' %}
+
+{% endpaginate %}
+{% else %}
+
+{% endif %}

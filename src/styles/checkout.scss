@@ -1,0 +1,28 @@
+@import "settings";
+
+@import "settings.type";
+@import "settings.bow";
+@import "settings.colors";
+@import "settings.transitions";
+
+@import "component.buttons";
+
+@import "checkout.reset";
+@import "checkout.layout";
+@import "checkout.type";
+@import "checkout.forms";
+
+@import "checkout.logo";
+
+/*----------------------------------------
+Form
+*----------------------------------------*/
+* {
+    box-sizing:border-box;
+}
+
+
+
+#tagline {
+    display:none;
+}

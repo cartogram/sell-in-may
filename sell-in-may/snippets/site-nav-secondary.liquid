@@ -1,0 +1,53 @@
+{% comment %}
+List out your main-menu linklist (default)
+
+More info on linklists:
+- http://docs.shopify.com/themes/liquid-variables/linklists
+{% endcomment %}
+<ul class="nav nav--global nav--secondary">
+    {% for link in linklists.secondary-menu.links %}
+    {% comment %}
+    Create a dropdown menu by naming a linklist the same as a link in the parent nav
+
+    More info on dropdowns:
+    - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+    {% endcomment %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% if linklists[child_list_handle].links != blank %}
+    <li class="nav__item nav__item--has-dropdown{% if link.active %} nav__item--is-active{% endif %}" aria-haspopup="true">
+        <a href="{{ link.url }}">{{ link.title }}</a>
+        <ul class="nav__dropdown">
+            {% for childlink in linklists[child_list_handle].links %}
+            <li {% if childlink.active %}class="nav__item--is-active"{% endif %}><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% else %}
+    <li class="nav__item {% if link.active %} nav__item--is-active{% endif %}">
+        <a href="{{ link.url }}">{{ link.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    {% comment %}
+    If customer accounts are enabled, provide login and create account links
+    {% endcomment %}
+    {% if shop.customer_accounts_enabled %}
+    <li>
+        {% if customer %}
+        Logged in as <a href="/account">{{ customer.first_name }}</a> &middot; {{ 'Log out' | customer_logout_link }}
+        {% else %}
+        {{ 'Log in' | customer_login_link }}
+        {% if shop.customer_accounts_optional %}
+        or {{ 'Create an account' | customer_register_link }}
+        {% endif %}
+        {% endif %}
+    </li>
+    {% endif %}
+    <li class="nav__item--close ">
+        <a class="show-for-small-only" cg-toggle state="state-nav-secondary-is-shown">
+            <span class="screen-text">Remove</span>
+            <svg class="cart__icon svg--close icon--white"><use xlink:href="#close" /></svg>
+        </a>
+    </li>
+</ul>

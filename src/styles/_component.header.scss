@@ -1,0 +1,153 @@
+
+    /**
+    * Import Mixins to provide modules with exports.
+    * List other required modules here.
+    */
+
+    @import "component.mixins";
+
+    /*------------------------------------*\
+
+    /**
+    * Variables
+    */
+
+    $header__height:rem-calc(200) !default;
+    $push-nav__height:rem-calc(220) !default;
+
+
+    /*------------------------------------*\
+
+    /**
+    * @title Sections
+    */
+
+
+    /**
+    *   All Logic pertaining to the top back horizontal navigation
+    *   should go in this file.
+    */
+
+    /*------------------------------------*\
+
+    $Sections Area
+
+    */
+
+    @include exports("header") {
+
+
+    .section--header {
+        position:relative;
+        height:$header__height;
+        text-align:center;
+        padding-top:rem-calc(43);
+        @media #{$medium-up} {
+            padding-top:0;
+            border-top:rem-calc(5) solid $black;
+        }
+        >.row,
+        .header__logo {
+            height:100%;
+        }
+        color:$black;
+    }
+
+    .logo {
+        position:relative;
+        top:50%;
+        transform:translateY(-50%);
+        z-index:index($header, logo);
+        svg {
+            margin:auto
+        }
+        @media #{$medium-up} {
+            svg {
+                margin:0;
+            }
+        }
+    }
+
+
+    /*
+    Temporary Responsive stuff
+    */
+
+    .header__nav {
+        position:absolute;
+        top:0;
+        background:$black;
+        z-index:index($header, header__nav);
+
+        @media #{$medium-up} {
+            position:relative;
+            background:transparent;
+
+        }
+    }
+
+    .header__nav-primary {
+
+    }
+
+
+
+
+    .header__nav-secondary {
+        transition:opacity $base-timing $base-easing;
+        transform:translate3d(0, -$push-nav__height, 0);
+        height:$push-nav__height;
+        overflow:scroll;
+        z-index:index($header, header__nav-secondary);
+        opacity:0;
+        @media #{$medium-up} {
+            opacity:1;
+            transform:translate3d(0, 0, 0);
+            overflow:visible;
+            height:auto;
+        }
+
+        .state-nav-secondary-is-shown & {
+            opacity:1;
+        }
+
+    }
+    .site {
+        transition:transform $base-timing $base-easing;
+        @media #{$small-only} {
+
+            .state-nav-secondary-is-shown & {
+                transform:translate3d(0, $push-nav__height, 0);
+            }
+        }
+    }
+
+    .header__cart-search {
+        height:100%;
+        position:absolute;
+        top:0;
+        overflow:hidden;
+        @media #{$medium-up} {
+            position:relative;
+        }
+    }
+
+    .link--cta {
+        position:absolute;
+        color:$white !important;
+        transform:translate(-0%, 0%);
+        border-radius:0 !important;
+        top:rem-calc(46);
+        right:2px;
+        @media #{$medium-up} {
+            top:rem-calc(0);
+        }
+        @media #{$large-up} {
+            right:rem-calc(60);
+        }
+        @media #{$xlarge-up} {
+            right:rem-calc(100);
+        }
+    }
+
+    }

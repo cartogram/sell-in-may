@@ -1,0 +1,259 @@
+
+/**
+* Import Mixins to provide modules with exports.
+* List other required modules here.
+*/
+
+@import "component.mixins";
+
+/*------------------------------------*\
+
+/**
+* Variables
+*/
+
+
+/*------------------------------------*\
+
+/**
+* @title Forms
+*/
+
+
+/**
+*   All Logic pertaining to the top back horizontal navigation
+*   should go in this file.
+*/
+
+/*------------------------------------*\
+
+$Forms Area
+
+*/
+
+@include exports("dropdown") {
+
+
+
+
+/* Default custom select styles */
+.cs-select {
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	text-align: left;
+	z-index: 100;
+	width: 100%;
+	max-width: 550px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	.filter__select-box & {
+		position:static;
+	}
+
+	&:focus {
+		outline: none; /* For better accessibility add a style for this in your skin */
+	}
+
+	select {
+		display: none;
+	}
+
+	span {
+		display: block;
+		position: relative;
+		cursor: pointer;
+		padding:$base-spacing-unit/2 $base-spacing-unit;;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding:$base-spacing-unit !important;
+		border-radius:$site-border-radius;
+		transition:all $base-timing $base-easing;
+	}
+	.cs-placeholder {
+		@extend .epsilon;
+		color:$green;
+
+		svg{
+			top:50%;
+			transform:translateY(-50%);
+			position:absolute;
+			right:.5rem;
+			height:rem-calc(10);
+			width:rem-calc(10);
+			fill:$green;
+			right:$base-spacing-unit;
+			transition:all $base-timing $base-easing;
+		}
+
+		&:before {
+			content:' ';
+			position:absolute;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			border:3px solid $green;
+			height:auto;
+			width:auto;
+			transition:border $base-timing $base-easing;
+		}
+
+
+		&:hover {
+			color:$green-dark;
+			&:before {
+				border:1px solid $green-dark;
+			}
+			svg {
+				fill:$green-dark;
+			}
+		}
+
+		&:active {
+			color:$green;
+		}
+
+
+		.filter__select-box & {
+			border:none;
+			background:none;
+			color:$white;
+			text-align:left;
+
+			svg {
+				fill:$white;
+				right:.7rem;
+			}
+			&:before {
+				content:'';
+				position:absolute;
+				left:0;
+				right:0;
+				top:0;
+				height:rem-calc(5);
+				background:$white;
+				display:block;
+				transition:transform $base-timing $base-easing;
+				transform:scaleY(0);
+				transform-origin:0 0;
+				border:none;
+			}
+			&:hover:before {
+				transform:scaleY(1);
+			}
+		}
+	}
+
+	ul {
+		padding:$base-spacing-unit * 2;
+		background: $green-dark;
+		margin:0;
+		overflow-y:scroll;
+		max-height:rem-calc(400);
+		text-align:left;
+		border-radius:$site-border-radius $site-border-radius 0 0 ;
+		li {
+			margin:0;
+		}
+		span {
+			font-weight:$font-weight-bold ;
+			text-transform: uppercase;
+			letter-spacing: rem-calc(2);
+			font-size: $micro;
+			padding:$base-spacing-unit/4 .5rem !important;
+			color:$white;
+			transition:color $base-timing $base-easing;
+			&:hover {
+				color:$green;
+			}
+		}
+		.filter__select-box & {
+			background:$blue;
+			columns: 3 200px;
+			span:hover {
+				color:$blue-dark;
+			}
+			@media #{$medium-up} {
+				padding:$base-spacing-unit * 2 $base-spacing-unit  $base-spacing-unit ;
+			}
+		}
+	}
+
+	&.cs-active {
+		.cs-placeholder {
+			color:$green-dark;
+
+			&:before {
+				border:1px solid $green-dark;
+			}
+			svg {
+				fill:$green-dark;
+			}
+
+			.filter__select-box &{
+				color:$white;
+
+				&:before {
+					border:none;
+				}
+				svg {
+					fill:$white;
+				}
+			}
+		}
+
+		> span {
+			border-radius:  0 0 $site-border-radius $site-border-radius;
+			svg {
+				transform:translateY(-50%) rotate(-45deg);
+			}
+		}
+		.filter__select-box & >span {
+			position:relative;
+			&:before {
+				transform:scaleY(1);
+			}
+
+		}
+
+
+	}
+
+
+}
+
+
+/* Options */
+.cs-select .cs-options {
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	bottom:100%;
+	transform:scaleY(0);
+	transition:all $base-timing $base-easing;
+	transform-origin:100% 100%;
+	z-index:0;
+	.filter__select-box & {
+
+		left:0;
+	}
+}
+
+.cs-select.cs-active .cs-options {
+	transform:scaleY(1);
+	opacity:1;
+	z-index:1;
+}
+
+}
+
+/*
+End Dropddown
+*/

@@ -1,0 +1,124 @@
+<div id="col-widgets">
+
+  {% if settings.textwidget_visible %}
+  <!-- Widget: display some text -->
+  <section class="widget widget-text">
+    <div class="widget-header">
+      <h3>{{ settings.textwidget_title }}</h3>
+    </div>
+    <div class="widget-content">
+      {{ settings.textwidget_content | newline_to_br }}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if settings.show_allcollections_widget %}
+  <!-- Widget: list all collections -->
+  <div class="widget widget-linklist" id="widget-allcollections">
+    <div class="widget-header">
+      <h3><a href="/collections">{{ settings.allcollections_title }}</a></h3>
+    </div>
+    <div class="widget-content">
+      <ul>
+      {% for collection in collections %}
+        <li>
+          <span class="arrow"></span>
+          <a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title | escape }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>    
+  </div><!-- /.widget -->
+  {% endif %}
+
+  {% if settings.show_vendors_widget %}
+  <!-- Widget: list all vendors -->
+  <div class="widget widget-linklist" id="widget-allvendors">
+    <div class="widget-header">
+      <h3>{{ settings.vendors_widget_title }}</h3>
+    </div>
+    <div class="widget-content">
+      <ul>
+      {% for vendor in shop.vendors %}
+        <li>
+          <span class="arrow"></span>
+          {{ vendor | link_to_vendor }}
+        </li>
+      {% endfor %}
+      </ul>
+    </div>    
+  </div><!-- /.widget -->
+  {% endif %}
+
+  {% if settings.show_widget_linklist1 %}
+    <!-- Link List Widget #1 -->
+    {% include 'widget-linklist' with settings.widget_linklist1 %}
+  {% endif %}
+
+  {% if settings.show_widget_linklist2 %}
+    <!-- Link List Widget #2 -->
+    {% include 'widget-linklist' with settings.widget_linklist2 %}
+  {% endif %}
+
+  {% if settings.show_widget_linklist3 %}
+    <!-- Link List Widget #3 -->
+    {% include 'widget-linklist' with settings.widget_linklist3 %}
+  {% endif %}
+
+  {% if settings.show_blog %}
+  {% unless settings.widget_blog == blank or blogs[settings.widget_blog].empty? or blogs[settings.widget_blog].articles_count == 0 %}
+  <div class="widget" id="widget-blog">
+    <div class="widget-header">
+      <h3>{{ blogs[settings.widget_blog].title}}</h3>
+    </div>
+      {% for a in blogs[settings.widget_blog].articles limit: 3 %}
+        <h4><a href="{{ a.url }}">{{ a.title }}</a></h4>
+        <p>{{ a.content | strip_html | truncatewords:30 }}</p>
+    {% endfor %}
+  </div>
+  {% endunless %}
+  {% endif %}  
+  
+  {% if settings.show_mailing_list %}
+  <div class="widget widget-mailing-list" id="widget-mailing-list">
+    {% if settings.mailing_list_title.size > 0 %}
+    <div class="widget-header">
+      <h3>{{ settings.mailing_list_title }}</h3>
+    </div>
+    {% endif %}
+    {% if settings.mailing_list_tagline.size > 0 %}
+    <div class="widget-content">
+      <p>{{ settings.mailing_list_tagline }}</p>
+    </div>
+    {% endif %}
+    {% if settings.mailing_list_type == 'mailchimp' and settings.mailchimp_form_action.size > 0 %}
+    <form action="{{ settings.mailchimp_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+      <input type="email" placeholder="your@email.com" name="EMAIL" id="email-input" />
+      <input type="submit" class="btn" value="Sign Up" name="subscribe" id="email-submit" />
+    </form>
+    {% else %}
+    {% form 'customer' %}        
+    {% if form.posted_successfully? %}
+    <p class="success feedback">Thank you for signing up!</p>
+    {% endif %}
+    {% if form.errors %}
+    <p class="error feedback">
+    {% for field in form.errors %}
+    {{ field }} {{ form.errors.messages[field] }}
+    {% endfor %}
+    </p>
+    {% endif %}
+    <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter" />
+    <input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Subscriber" />
+    <input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Newsletter" />
+    <input type="email" placeholder="your@email.com" name="contact[email]" id="email-input" />
+    <input type="submit" class="btn" value="Sign Up" name="subscribe" id="email-submit" />
+    {% if form.posted_successfully? or form.errors %}
+    <script>window.location.hash = '#widget-mailing-list';</script>
+    {% endif %}
+    {% endform %} 
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div><!-- /#col-widgets -->

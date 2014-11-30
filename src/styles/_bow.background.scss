@@ -1,0 +1,10 @@
+$bg-body-path: "{{ 'bg-body.png' | asset_url }}";
+$bg-footer-path: "{{ 'bg-footer.png' | asset_url }}";
+$bg-header-path: "{{ 'bg-header.png' | asset_url }}";
+
+body {
+    background-image:url($bg-body-path), url($bg-footer-path), url($bg-header-path);
+    background-position:left center, left bottom, right top;
+    background-attachment:scroll, scroll, fixed;
+    background-repeat:no-repeat;
+}
