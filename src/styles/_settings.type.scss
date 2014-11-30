@@ -14,8 +14,6 @@ $nano-size : 11;
 $xnano-size : 9;
 $giga-size : 90;
 
-
-
 $h1-size : 32;
 $h2-size : 30;
 $h3-size : 18;
@@ -31,6 +29,8 @@ $h4-font-size: rem-calc($h4-size);
 $h5-font-size: rem-calc($h5-size);
 $h6-font-size: rem-calc($h6-size);
 
+$header-line-height : 1.5;
+
 $p : rem-calc($p-size);
 $milli : rem-calc($milli-size);
 $micro : rem-calc($micro-size);
@@ -40,4 +40,4 @@ $xnano : rem-calc($xnano-size);
 
 
 $base-font-size: 1rem;
-$btn-width :    rem-calc(160);
+$btn-width :    100px;

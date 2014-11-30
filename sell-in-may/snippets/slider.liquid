@@ -1,32 +1,32 @@
 {% if settings.slider_home_enable %}
 <section class="section section--slideshow">
-    <div bow-swiper class="swiper-container">
+    <div sim-swiper class="swiper-container">
         <div class="swiper-wrapper">
             {% for i in (1..6) %}
-            {% capture slide %}slide_{{ i }}{% endcapture %}
-            {% capture slide_link %}slide_{{ i }}_link{% endcapture %}
-            {% capture slide_img %}slide_{{ i }}.jpg{% endcapture %}
-            {% capture slide_img_alt %}slide_{{ i }}_alt{% endcapture %}
-            {% capture slide_img_caption %}slide_{{ i }}_caption{% endcapture %}
-            {% capture slide_img_text %}slide_{{ i }}_text{% endcapture %}
-            {% if settings[slide] %}
-            <div class="swiper-slide ">
-                <a href="{{ settings[slide_link] }}" class="slide-link overlay">
-                    <figure class="slideshow__figure">
-                        <img src="{{ slide_img | asset_url }}" alt="{{ settings[slide_img_alt] }}">
-                        {% unless settings[slide_img_caption] == blank %}
-                        <figcaption class="overlay__text">
-                            <h2 class="caption__heading">{{ settings[slide_img_caption] }}</h2>
-                            {% unless settings[slide_img_text] == blank %}
-                                <p class="soft--top">{{ settings[slide_img_text] }}</p>
-                            {% endunless %}
-                            <span class="caption__anchor">Learn More</span>
-                        </figcaption>
-                        {% endunless %}
-                    </figure>
-                </a>
-            </div>
-            {% endif %}
+                    {% capture slide %}slide_{{ i }}{% endcapture %}
+                    {% capture slide_link %}slide_{{ i }}_link{% endcapture %}
+                    {% capture slide_img %}slide_{{ i }}.jpg{% endcapture %}
+                    {% capture slide_img_alt %}slide_{{ i }}_alt{% endcapture %}
+                    {% capture slide_img_caption %}slide_{{ i }}_caption{% endcapture %}
+                    {% capture slide_img_text %}slide_{{ i }}_text{% endcapture %}
+                    {% if settings[slide] %}
+                    <div class="swiper-slide ">
+                        <a href="{{ settings[slide_link] }}" class="slide__link">
+                            <figure class="slideshow__figure">
+                                <img class="slide__img" src="{{ slide_img | asset_url }}" alt="{{ settings[slide_img_alt] }}">
+                                {% unless settings[slide_img_caption] == blank %}
+                                <figcaption class="overlay__text">
+                                    <h2 class="caption__heading">{{ settings[slide_img_caption] }}</h2>
+                                    {% unless settings[slide_img_text] == blank %}
+                                        <p class="caption__text">{{ settings[slide_img_text] }}</p>
+                                    {% endunless %}
+                                    <span class="caption__anchor">Learn More</span>
+                                </figcaption>
+                                {% endunless %}
+                            </figure>
+                        </a>
+                    </div>
+                    {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -38,9 +38,6 @@
             <svg class="svg--arrow"><use xlink:href="#arrow-left" /></svg>
         </a>
     </nav>
-
-
-
-    {% comment %}<div class="slideshow__pagination"></div>{% endcomment %}
+    <div class="slideshow__pagination"></div>
 </section>
 {% endif %}
