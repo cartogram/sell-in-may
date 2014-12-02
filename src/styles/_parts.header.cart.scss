@@ -1,0 +1,19 @@
+
+$header__height--mobile:rem-calc(50) !default;
+$header__height:rem-calc(80) !default;
+
+.cd-nav-cart{
+    font-size:$h3-font-size;
+    height: $header__height--mobile;
+    line-height: $header__height--mobile;
+    color: $grey-dark;
+    position:absolute;
+    padding: 0 10px;
+    right:0;
+    top:0;
+    @media #{$large-up} {
+        height: $header__height;
+        line-height: $header__height;
+
+    }
+}

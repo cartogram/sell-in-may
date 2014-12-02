@@ -1,35 +1,47 @@
 {% comment %}
 
-  This snippet is used to showcase each collection during the loop,
-  'for product in collection.products' in list-collections.liquid.
+This snippet is used to showcase each collection during the loop,
+'for product in collection.products' in list-collections.liquid.
 
 {% endcomment %}
 
 {% comment %}
-  Set the default collection_item_width if no variable is set
+Set the default collection_item_width if no variable is set
 {% endcomment %}
 {% unless collection_item_width %}
-  {% assign collection_item_width = 'medium--one-half large--one-third' %}
+{% assign collection_item_width = 'medium-3 small-6' %}
 {% endunless %}
 
-<div class="grid-item {{collection_item_width}} text-center">
+{% comment %}
+Use capture to put the collection title in a variable that is used in liquid filters
+{% endcomment %}
+{% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
 
-  {% comment %}
-    Use capture to put the collection title in a variable that is used in liquid filters
-  {% endcomment %}
-  {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+<div class="columns {{collection_item_width}}">
 
-  <a href="{{ collection.url }}" title="Browse our {{ collection_title }} collection">
-    {% if collection.image %}
-      {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
-    {% else %}
-      {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
-    {% endif %}
-  </a>
+    <div cg-load-watch class="tile tile--collection tile--{{collection_title | downcase }}">
 
-  <a href="{{ collection.url }}" title="Browse our {{ collection_title }} collection">{{ collection.title }}</a>
-  <p>
-    ({{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'item', 'items' }})
-  </p>
 
+        <a href="{{ collection.url }}" title="Browse our {{ collection_title }} collection">
+            <figure class="tile__figure">
+                {% if collection.image %}
+                    <img bow-lazy src="{{'loading-balls.svg' | asset_url }}" data-original="{{  collection.image.src | img_url: 'large'  }}" alt="{{ collection_title | escape }}">
+                {% else %}
+                    <img bow-lazy src="{{'loading-balls.svg' | asset_url }}" data-original="{{  collection.products.first.featured_image | img_url: 'large'  }}" alt="{{ collection_title | escape }}">
+                {% endif %}
+            </figure>
+
+            <figcaption class="caption">
+                <p class="caption__heading beta">{{ collection.title }}</p>
+            </figcaption>
+
+            <span class="tile__flags">
+                {{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'item', 'items' }}
+            </span>
+
+        </a>
+
+
+
+    </div>
 </div>

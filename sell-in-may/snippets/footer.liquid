@@ -48,9 +48,10 @@
         <div class="columns small-12 medium-4">
 
             <ul class="nav nav--stacked">
+                {% if settings.hours_weekday != blank %}
                 <li class="location nav__heading">Hours</li>
 
-                {% if settings.hours_weekday != blank %}
+
                 <li><span class="nav__label">Mon to Fri:</span> {{ settings.hours_weekday }}</li>
                 {% endif %}
 

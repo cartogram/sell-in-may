@@ -7,11 +7,12 @@
      */
 
     $white: #ffffff;
-    $black:#000000;
+    $black:#4d4d4d;
     $grey-dark:#4d4d4d; //(used for most of the text except in the main nav and footer)
     $grey-medium: #7c7c7e; //(used for the cross-out regular price if there's a sale)
     $grey: #d7d7d7; //(used for main background color, cutouts)
-    $grey-light: #eee; //(used for main background color, cutouts)
+    $grey-light: #ddd; //(used for main background color, cutouts)
+    $grey-lighter: #eee; //(used for main background color, cutouts)
 
     $blue: #9ed0f9;
     $blue-dark: #72abd6;
@@ -37,10 +38,11 @@
      */
 
 
-    $primary : $black;
+    $primary : $orange;
     $secondary : $white;
 
     $color-active: $blue;
+    $site-background: $grey-light;
 
 
     /**
@@ -51,17 +53,17 @@
         /**
        * Background
        */
-       %background--#{$colorname}        { background: #{$color !important}  }
+       .background--#{$colorname}        { background: #{$color} !important  }
 
 
         /**
        * Borders
        */
-       %border--#{$colorname}       { border-color:#{$color}  }
-       %border-right--#{$colorname}       { border-right:1px solid #{$color}  }
-       %border-left--#{$colorname}       { border-left:1px solid #{$color}  }
-       %border-top--#{$colorname}       { border-top:1px solid #{$color}  }
-       %border-bottom--#{$colorname}       { border-bottom:1px solid #{$color}  }
+       .border--#{$colorname}       { border-color:#{$color}  }
+       .border-right--#{$colorname}       { border-right:1px solid #{$color}  }
+       .border-left--#{$colorname}       { border-left:1px solid #{$color}  }
+       .border-top--#{$colorname}       { border-top:1px solid #{$color}  }
+       .border-bottom--#{$colorname}       { border-bottom:1px solid #{$color}  }
 
 
         /**
@@ -71,6 +73,5 @@
 
     }
 
-    @include color-setup('orange', $orange);
-    @include color-setup('blue', $blue);
+    @include color-setup('primary', $primary);
     @include color-setup('white', $white);

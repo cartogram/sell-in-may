@@ -1,0 +1,13 @@
+.logo {
+    position: absolute;
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+    padding:$base-spacing-unit/2;
+    font-size:$h3-font-size;
+    color: $grey-dark;
+    -webkit-font-smoothing: antialiased;
+    img {
+        display: block;
+    }
+}

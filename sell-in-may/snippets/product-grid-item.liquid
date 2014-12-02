@@ -1,23 +1,8 @@
 {% comment %}
-
-This snippet is used to showcase each product during the loop,
-'for product in collection.products' in collection.liquid.
-
-A liquid variable (grid_item_width) is set just before the this
-snippet is included to change the size of the container.
-Once the variable is set on a page, all future instances of this
-snippet will use that width. Overwrite the variable to adjust this.
-
-Example
-- assign grid_item_width = 'large--one-quarter medium--one-half'
-
-{% endcomment %}
-
-{% comment %}
 Set the default grid_item_width if no variable is set
 {% endcomment %}
 {% unless grid_item_width %}
-{% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% assign grid_item_width = 'small-12 medium-4' %}
 {% endunless %}
 
 {% comment %}
@@ -52,48 +37,51 @@ Check if the product is sold out and set a variable to be used below.
 {% comment %}
 Set a class for sold-out and on-sale items
 {% endcomment %}
-<div cg-load-watch class="tile tile--product tile--{{product.type | downcase }} text-center {{grid_item_width}}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
+<div class="{{grid_item_width}} columns ">
+    <div cg-load-watch class="tile tile--product tile--{{product.type | downcase }} text-center {% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
 
-    {% comment %}
-    Link to your product with the 'within: collection' filter for the link to be aware of the collection.
-    This allows you to create collection-based navigation on the product page.
+        {% comment %}
+        Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+        This allows you to create collection-based navigation on the product page.
 
-    Results of using 'within: collection':
-    - Instead of a URL with /products/product-handle
-    you would get /collections/collection-handle/products/product-handle
+        Results of using 'within: collection':
+        - Instead of a URL with /products/product-handle
+        you would get /collections/collection-handle/products/product-handle
 
-    For more info on navigation within a collection
-    - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+        For more info on navigation within a collection
+        - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
 
-    {% endcomment %}
-    <a href="{{ product.url | within: collection }}" class="tile__link">
-        <figure class="tile__figure">
-            <img bow-lazy src="{{'loading-balls.svg' | asset_url }}" data-original="{{  product.featured_image.src | img_url: 'large'  }}" alt="{{ product.featured_image.alt | escape }}">
-        </figure>
+        {% endcomment %}
+        <a href="{{ product.url | within: collection }}" class="tile__link">
+            <figure class="tile__figure">
+                <img bow-lazy src="{{'loading-balls.svg' | asset_url }}" data-original="{{  product.featured_image.src | img_url: 'large'  }}" alt="{{ product.featured_image.alt | escape }}">
+            </figure>
 
-        <figcaption class="caption">
-            <p class="caption__heading beta">{{ product.title }}</p>
-        </figcaption>
-        <span class="tile__label epsilon">
-            {{product.vendor}}
-        </span>
+            <figcaption class="caption">
+                <p class="caption__heading beta">{{ product.title }}</p>
+            </figcaption>
 
-        <span class="tile__price">
-            <span class="tile__price__text price price--gamma">{{ product.price | money }}
-                {% if on_sale %}<span class="price price--sale price--delta">{{ product.compare_at_price | money }}</span>{% endif %}
+            <span class="tile__label epsilon">
+                {{product.vendor}}
             </span>
-        </span>
 
-        <span class="tile__flags">
-            {% if on_sale %}
-            <span class="tile__flag flag--sale">Sale</span>
-            {% endif %}
+            <span class="tile__price">
+                <span class="tile__price__text price price--gamma">{{ product.price | money }}
+                    {% if on_sale %}<span class="price price--sale price--delta">{{ product.compare_at_price | money }}</span>{% endif %}
+                </span>
+            </span>
 
-            {% if new %}
-            <span class="tile__flag flag--new">New</span>
-            {% endif %}
+            <span class="tile__flags">
+                {% if on_sale %}
+                <span class="tile__flag flag--sale">Sale</span>
+                {% endif %}
 
-        </span>
-    </a>
+                {% if new %}
+                <span class="tile__flag flag--new">New</span>
+                {% endif %}
 
+            </span>
+        </a>
+
+    </div>
 </div>

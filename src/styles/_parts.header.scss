@@ -5,15 +5,19 @@
     */
 
     @import "component.mixins";
-
+    @import "parts.header.controls";
+    @import "parts.header.search";
+    @import "parts.header.nav";
+    @import "parts.header.cart";
     /*------------------------------------*\
 
     /**
     * Variables
     */
 
-    $header__height:rem-calc(200) !default;
-    $push-nav__height:rem-calc(220) !default;
+    $header__height--mobile:rem-calc(50) !default;
+    $header__height:rem-calc(80) !default;
+    $push-nav__width:rem-calc(260) !default;
 
 
     /*------------------------------------*\
@@ -37,117 +41,109 @@
     @include exports("header") {
 
 
-    .section--header {
-        position:relative;
-        height:$header__height;
-        text-align:center;
-        padding-top:rem-calc(43);
-        @media #{$medium-up} {
-            padding-top:0;
-            border-top:rem-calc(5) solid $black;
-        }
-        >.row,
-        .header__logo {
-            height:100%;
-        }
-        color:$black;
-    }
+        /* --------------------------------
 
-    .logo {
-        position:relative;
-        top:50%;
-        transform:translateY(-50%);
-        z-index:index($header, logo);
-        svg {
-            margin:auto
-        }
-        @media #{$medium-up} {
-            svg {
-                margin:0;
+        Main components
+
+        */
+        .cd-main-content,
+        .cd-main-header {
+            /* Force Hardware Acceleration in WebKit */
+            transform: translateZ(0);
+            will-change: transform;
+            position: relative;
+            transition: transform 0.3s;
+            &.nav-is-visible {
+                transform: translateX(-$push-nav__width);
+                @media #{$large-up} {
+                    transform: translateX(-0);
+                }
             }
         }
-    }
 
-
-    /*
-    Temporary Responsive stuff
-    */
-
-    .header__nav {
-        position:absolute;
-        top:0;
-        background:$black;
-        z-index:index($header, header__nav);
-
-        @media #{$medium-up} {
-            position:relative;
-            background:transparent;
-
-        }
-    }
-
-    .header__nav-primary {
-
-    }
-
-
-
-
-    .header__nav-secondary {
-        transition:opacity $base-timing $base-easing;
-        transform:translate3d(0, -$push-nav__height, 0);
-        height:$push-nav__height;
-        overflow:scroll;
-        z-index:index($header, header__nav-secondary);
-        opacity:0;
-        @media #{$medium-up} {
-            opacity:1;
-            transform:translate3d(0, 0, 0);
-            overflow:visible;
-            height:auto;
-        }
-
-        .state-nav-secondary-is-shown & {
-            opacity:1;
-        }
-
-    }
-    .site {
-        transition:transform $base-timing $base-easing;
-        @media #{$small-only} {
-
-            .state-nav-secondary-is-shown & {
-                transform:translate3d(0, $push-nav__height, 0);
+        .cd-main-content {
+            min-height: 100vh;
+            z-index: index($header, content);
+            background: $site-background;
+            padding-top:$header__height--mobile;
+            @media #{$large-up} {
+                padding-top:$header__height;
             }
         }
-    }
 
-    .header__cart-search {
-        height:100%;
-        position:absolute;
-        top:0;
-        overflow:hidden;
-        @media #{$medium-up} {
-            position:relative;
-        }
-    }
+        .cd-main-header {
+            height: $header__height--mobile;
+            background: #ffffff;
+            z-index: index($header, header);
+            /* add .nav-is-fixed class to body if you want a fixed navigation on > 1170px */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
 
-    .link--cta {
-        position:absolute;
-        color:$white !important;
-        transform:translate(-0%, 0%);
-        border-radius:0 !important;
-        top:rem-calc(46);
-        right:2px;
-        @media #{$medium-up} {
-            top:rem-calc(0);
+
+            @media #{$large-up} {
+                height: $header__height;
+                @include clearfix();
+            }
         }
+        .cd-overlay {
+            /* shadow layer visible when navigation is active */
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            background-color: rgba(105, 170, 111, 0.8);
+            visibility: hidden;
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: opacity .3s 0s, visibility 0s .3s;
+        }
+        .cd-overlay.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity .3s 0s, visibility 0s 0s;
+        }
+
+        /* --------------------------------
+
+        support for no js
+
+        -------------------------------- */
+        .no-js .cd-primary-nav {
+            position: relative;
+            height: auto;
+            width: 100%;
+            overflow: visible;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        .no-js .cd-search {
+            position: relative;
+            top: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+
         @media #{$large-up} {
-            right:rem-calc(60);
+            .no-js .cd-primary-nav {
+                position: absolute;
+                z-index: 3;
+                display: inline-block;
+                width: auto;
+                top: 0;
+                right: 150px;
+                padding: 0;
+            }
+
+            .no-js .nav-is-fixed .cd-primary-nav {
+                position: fixed;
+            }
         }
-        @media #{$xlarge-up} {
-            right:rem-calc(100);
-        }
-    }
+
 
     }

@@ -1,0 +1,32 @@
+
+<section class="section--next-prev section--with-border text-center ">
+
+    <div class="row">
+
+        <div class="column small-4">
+
+            {% if blog.previous_article %}
+
+            <span class="link--next-prev">
+                {{ 'Prev' | link_to: blog.previous_article }}
+            </span>
+
+            {% endif %}
+
+        </div>
+
+        <div class="column small-4">
+
+            {% if blog.next_article %}
+
+            <span class="link--next-prev">
+                {{ 'Next' | link_to: blog.next_article }}
+            </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>

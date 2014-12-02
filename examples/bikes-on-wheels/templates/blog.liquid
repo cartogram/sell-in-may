@@ -1,0 +1,101 @@
+{% comment %}
+
+Loop through a defined number of articles with the 'paginate' tag.
+Don't forget to close the tag after your loop.
+
+{% endcomment %}
+
+{% paginate blog.articles by 5 %}
+
+{% comment %}
+This template is also used for listing out articles of a specific tag.
+You can change layouts or styles by checking if current_tags is true.
+{% endcomment %}
+
+<section class="section--product-single section" itemscope itemtype="http://schema.org/Product"
+    zum-waypoint="waypoints"
+    down="sidebar.on"
+    up="sidebar.off"
+    >
+    <section class="section--sidebar section--fill"
+        ng-class="{
+            'is-fixed' : waypoints.sidebar.on,
+            'is-static' : waypoints.sidebar.off,
+            'at-bottom' : waypoints.sidebar.bottom
+        }">
+        <div class="row">
+            <div class="columns medium-push-8 medium-4 blog__sidebar">
+                {% include 'blog-sidebar' %}
+            </div>
+        </div>
+    </section>
+    <section class="section section--sidebar__bottom"
+        ng-class="{
+            'is-fixed' : waypoints.sidebar.on,
+            'is-static' : waypoints.sidebar.off,
+            'at-bottom' : waypoints.sidebar.bottom
+        }">
+        <div class="row ">
+            <div class="columns medium-push-8 medium-4">
+                <div class=" blog__actions">
+
+                    <h5 class="text--with-icon color--white soft-half--left push--bottom">
+                        <span class="text--with-icon__icon"><svg class="svg--bike"><use xlink:href="#bike" /></svg></span>
+                        <span class="text--with-icon__text">{{settings.newsletter_title }}</span>
+                    </h5>
+                    {% include 'newsletter-form' %}
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row blog">
+        <div class="columns medium-8 ">
+
+            <div class="blog__acticles">
+                {% if current_tags %}
+                    {% comment %}{% endcomment %}
+
+                    <article class="article">
+                        <p class="small"><span class="soft-half--right">Viewing posts tagged <strong>{{ current_tags.first }}</strong>,</span>{{ 'Back to all news' | link_to: blog.url }}</p>
+                    </article>
+                {%endif%}
+                {% comment %}
+                Loop through each article in your blog. This is limited to what you set for pagination above.
+
+                For more info on article liquid tags:
+                - http://docs.shopify.com/themes/liquid-variables/article
+                {% endcomment %}
+
+                {% for article in blog.articles %}
+
+                <article class="article">
+                    <h1 class=""><a href="{{ article.url }}">{{ article.title }}</a></h1>
+                    {% include 'article-meta' %}
+
+                    {% comment %}
+                    Add a surrounding div with class 'rte' to anything that will come from the rich text editor.
+                    Since this is just a listing page, you can either use the excerpt or truncate the full article.
+                    {% endcomment %}
+
+                        {% if article.excerpt.size > 0 %}
+                            <p class="lead">{{ article.excerpt }}</p>
+                        {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+                        {% endif %}
+
+                    <p class="small"><a href="{{ article.url }}">Read more</a></p>
+
+                </article>
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% include 'pagination-blog' %}
+
+{% endpaginate %}

@@ -1,0 +1,99 @@
+{% comment %}
+
+<!-- BEGIN COLLECTION-BASED SMART SUB-NAVIGATION -->
+
+<!-- Determine Page or Collection and assign matching LinkList Handle -->
+<!-- Edit 'Title' and 'link-list-handle' to match each main nav page.collection with the desired link list -->
+
+{% endcomment %}
+
+
+{% assign linklistHandle = collection.handle | prepend: 'filter-' %}
+
+
+<section class="section--filter section"
+ng-class="{
+    'is-fixed' : waypoints.filter.on,
+    'is-static' : waypoints.filter.off,
+    'at-bottom' : waypoints.filter.bottom
+}">
+
+<div class="filter__link">
+
+    <a href="{{collection.url}}/new">New</a>
+
+</div>
+
+<div class="filter__link">
+
+<a href="{{collection.url}}/sale">Sale</a>
+
+</div>
+
+
+
+    {% if linklists.[linklistHandle].links.size > 0 %}
+
+    <div class="filter__select-box" bow-filter>
+
+        <label class="screen-text">Types</label>
+
+        <select name="id" id="productSelect" class="cs-select cs-skin-underline product-variants">
+
+        <option
+            value="{{collection.url}}">
+                All Types
+        </option>
+
+        {% for link in linklists.[linklistHandle].links %}
+
+        <option
+            {% if link.active %}
+                selected="selected"
+            {% endif %}
+            value="{{ link.url }}">
+                {{ link.title }}
+        </option>
+
+        {% endfor %}
+
+        </select>
+
+    </div>
+
+    {%endif%}
+    {% if collection.all_vendors.size > 0 %}
+
+    <div class="filter__select-box js-select-box" bow-filter>
+
+        <label class="screen-text">Brands</label>
+
+        <select name="id" id="productSelect" class="cs-select cs-skin-underline product-variants">
+            <option
+                value="{{collection.url}}">
+                    All Vendors
+            </option>
+        {% for vendor in collection.all_vendors %}
+
+        <option
+            {% if collection.current_vendor == vendor or current_tags contains vendor %}
+                selected="selected"
+            {% endif %}
+            value="{{ collection.url }}/{{ vendor | handle }}">
+            {{ vendor }}
+        </option>
+
+        {% endfor %}
+
+        </select>
+
+    </div>
+
+    {%endif%}
+
+
+
+
+
+
+</section>

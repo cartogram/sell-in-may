@@ -81,4 +81,14 @@
     .link--disabled {
         color:$grey;
     }
+
+    .link--bar {
+        display:block;
+        width:100%;
+        background:$grey-lighter;
+        text-align:left;
+        padding:$base-spacing-unit;
+        color:$grey-dark;
+        font-size:$p;
+    }
     }

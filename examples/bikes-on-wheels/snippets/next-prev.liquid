@@ -1,0 +1,36 @@
+
+<section class="section--next-prev section--with-border text-center "
+zum-waypoint="waypoints"
+down="sidebar.bottom"
+up="sidebar.on"
+offset="100%">
+    <div class="row">
+    {% comment %}
+    If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
+    in the URL, we can show next/previous links to other products in the collection.
+    {% endcomment %}
+    {% if collection %}
+    {% if collection.previous_product or collection.next_product %}
+        <div class="column small-4">
+        {% if collection.previous_product %}
+
+        {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
+        <span class="link--next-prev">
+            {{ 'Previous' | link_to: prev_url }}
+        </span>
+
+        {% endif %}
+        </div>
+        <div class="column small-4">
+        {% if collection.next_product %}
+        {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
+        <span class="link--next-prev">
+            {{ 'Next' | link_to: next_url }}
+        </span>
+        {% endif %}
+        </div>
+    {% endif %}
+    {% endif %}
+
+    </div>
+</section>

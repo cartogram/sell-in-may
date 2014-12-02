@@ -67,11 +67,9 @@
     /* Default header styles */
     h1, h2, h3, h4 {
         font-family: $font-family-heading;
-        font-weight: $font-weight-medium;
+        font-weight: normal;
         text-rendering: optimizeLegibility;
         line-height:1.3;
-
-
     }
 
     h5 {
@@ -81,7 +79,9 @@
         font-size: $micro;
     }
     h6 {
-        font-size: $micro;
+        font-size: $milli;
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1);
     }
 
     .subheader { @include subheader; }
