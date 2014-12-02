@@ -41,33 +41,35 @@ $Icons Area
     i {
         font-style:none;
     }
-
+    .icon {
+        fill:$grey-medium;
+    }
     /**
     * Icon Sizes
     */
 
-    %icon--micro {
+    .icon--micro {
         svg {
             height:11px !important;
             width:11px !important;
         }
     }
 
-    %icon--milli {
+    .icon--milli {
         svg {
             height:15px !important;
             width:15px !important;
         }
     }
 
-    %icon--alpha {
+    .icon--alpha {
         &, svg {
             width:90px;
             height:auto;
         }
     }
 
-    %icon--beta {
+    .icon--beta {
         svg {
             height:auto;
             width:53px;

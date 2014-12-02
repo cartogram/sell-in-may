@@ -61,23 +61,26 @@ Set a class for sold-out and on-sale items
                 <p class="caption__heading beta">{{ product.title }}</p>
             </figcaption>
 
-            <span class="tile__label epsilon">
-                {{product.vendor}}
-            </span>
+
 
             <span class="tile__price">
                 <span class="tile__price__text price price--gamma">{{ product.price | money }}
                     {% if on_sale %}<span class="price price--sale price--delta">{{ product.compare_at_price | money }}</span>{% endif %}
                 </span>
+                <i class="icon icon--micro icon--white"><svg class="svg--arrow-right"><use xlink:href="#arrow-right" /></svg></i>
             </span>
 
             <span class="tile__flags">
+                <span class="tile__flag flag--vendor epsilon">
+                    {{product.vendor}}
+                </span>
+
                 {% if on_sale %}
-                <span class="tile__flag flag--sale">Sale</span>
+                <span class="tile__flag flag--sale epsilon">Sale</span>
                 {% endif %}
 
                 {% if new %}
-                <span class="tile__flag flag--new">New</span>
+                <span class="tile__flag flag--new epsilon">New</span>
                 {% endif %}
 
             </span>

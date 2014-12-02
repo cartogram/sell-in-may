@@ -49,7 +49,7 @@
 
     h1 { font-size: $h1-font-size - rem-calc(8); }
     h2 { font-size: $h2-font-size - rem-calc(8); }
-    h3 { font-size: $h3-font-size}
+    h3 { font-size: $h3-font-size - rem-calc(5); }
     h4 { font-size: $h4-font-size - rem-calc(2); }
     h5 { font-size: $h5-font-size; }
     h6 { font-size: $h6-font-size; }
@@ -65,18 +65,16 @@
 
 
     /* Default header styles */
-    h1, h2, h3, h4 {
+    h1, h2, h3, h4, h5 {
         font-family: $font-family-heading;
         font-weight: normal;
         text-rendering: optimizeLegibility;
         line-height:1.3;
+        letter-spacing:rem-calc(1);
     }
 
     h5 {
-        font-weight:$font-weight-bold ;
-        text-transform: uppercase;
-        letter-spacing: rem-calc(2);
-        font-size: $micro;
+        font-family: $font-family-base;
     }
     h6 {
         font-size: $milli;

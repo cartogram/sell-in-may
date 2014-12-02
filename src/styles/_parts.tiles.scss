@@ -1,35 +1,35 @@
 
-    /**
-    * Import Mixins to provide modules with exports.
-    * List other required modules here.
-    */
+/**
+* Import Mixins to provide modules with exports.
+* List other required modules here.
+*/
 
-    @import "component.mixins";
+@import "component.mixins";
 
-    /*------------------------------------*\
+/*------------------------------------*\
 
-    /**
-    * Variables
-    */
-
-    $tile-triangle-size : rem-calc(40);
-
-    /*------------------------------------*\
-
-    /**
-    * @title Lists
-    */
+/**
+* Variables
+*/
 
 
-    /**
-    *   All Logic pertaining to the top back horizontal navigation
-    *   should go in this file.
-    */
+/*------------------------------------*\
 
-    /*------------------------------------*\
+/**
+* @title Lists
+*/
 
-    */
 
+/**
+*   All Logic pertaining to the top back horizontal navigation
+*   should go in this file.
+*/
+
+/*------------------------------------*\
+
+*/
+
+@include exports("tiles") {
 
     .tile {
         text-align:center;
@@ -39,61 +39,48 @@
     .tile__price {
         position:absolute;
         top:0;
-        left:0;
-        height:$base-spacing-unit * 5.5;
-        width:$base-spacing-unit * 5.5;
+        right:0;
+        height:$base-spacing-unit * 2.5;
+        width:$base-spacing-unit * 5;
         text-align:center;
         display:block;
+        background:$primary;
+        color:$white;
+        transition:width $base-timing $base-easing;
+        overflow:hidden;
         .tile__price__text {
             position:absolute;
             top:50%;
             left:50%;
             transform:translate(-50%, -50%);
         }
+        .icon {
+            padding:1px $base-spacing-unit/2;
+            position:absolute;
+            top:50%;
+            left:100%;
+            transform:translate(0%, -50%) scale(0);
+            transition:transform $base-timing $base-easing;
+        }
+        .tile__link:hover & {
+            width:$base-spacing-unit * 6;
+            .icon {
+                transform:translate(-100%, -50%) scale(1);;
+            }
+        }
 
     }
     .tile__flags {
         position:absolute;
-        top:$base-spacing-unit *3;
-        right:$base-spacing-unit *3;
-        transform:translateY(-50%);
+        top:0;
+        left:0;
         .tile__flag {
             display:block;
             position:relative;
-            text-transform:uppercase;
-            font-size: $milli;
-            font-weight:$font-weight-bold;
-            line-height:2;
-            color:$white;
-            &:after,
-            &:before {
-                content: '';
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                transform: translate(-50%,-0%);
-                height: 0;
-                width: 0;
-                border: 45px solid transparent;
-                border-top: 25px solid $green;
-                z-index:-1;
-            }
-            &:after {
-                bottom:50%;
-                top:auto;
-                transform: translate(-50%,0%);
-                border: 45px solid transparent;
-                border-bottom: 25px solid $green;
-            }
-            &.flag--sale {
-                &:after {
-                    border-bottom: 25px solid $orange;
-                }
-                &:before {
-                    border-top: 25px solid $orange;
-                }
-
-            }
+            background:$white;
+            line-height:$base-spacing-unit * 2.5;
+            height:$base-spacing-unit * 2.5;
+            padding:0 $base-spacing-unit;
         }
     }
 
@@ -102,26 +89,7 @@
         position:relative;
         display:block;
         border:none;
-
-        &:before {
-            border:0 solid $blue;
-            display:block;
-            transition:border $base-timing $base-easing;
-            content:'';
-            position:absolute;
-            top:0;
-            left:0;
-            right:0;
-            bottom:0;
-            height:auto;
-            width:auto;
-            z-index:-1;
-        }
-        &:hover:before {
-            border-width:$site-gutter;
-            z-index:2;
-        }
-
+        box-shadow:0 0 2px $grey;
     }
 
     .tile__figure {
@@ -129,7 +97,7 @@
         background-repeat:no-repeat;
         background-size:cover;
         background-position:center top;
-
+        .tile--collection &,
         .tile--product & {
             padding-bottom: $base-spacing-unit * 4 ;
         }
@@ -139,6 +107,7 @@
             min-height:rem-calc(80);
         }
     }
+
 
     .caption {
         background:rgba($white, 0.9);
@@ -172,31 +141,8 @@
         }
 
     }
-        .caption__anchor {
-            @extend .zeta;
-            position:relative;
-            color:$blue;
-            &:after {
-                content:'';
-                width:100%;
-                position:absolute;
-                bottom:-1x;
-                height:1px;
-                display:block;
-                left:0;
-                background:$blue-dark;
-                transition:transform $base-timing $base-easing;
-                transform:scaleX(0);
-            }
-            .slide-link:hover &,
-            .tile:hover & {
-                color:$blue-dark;
-                &:after {
-                    transform:scaleX(1);
-                }
-            }
-        }
 
 
 
-    
+
+}

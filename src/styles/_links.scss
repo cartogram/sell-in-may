@@ -42,16 +42,12 @@
     a {
         text-decoration: none;
         line-height: inherit;
-        transition:color $base-timing $base-easing;
+        transition:color $base-timing $base-easing, background $base-timing $base-easing;;
         cursor:pointer;
-        color:$black;
+        color:$grey-medium;
         img {
             border:none;
         }
-        &:hover {
-            color:$color-active;
-        }
-
     }
 
     li a,
@@ -87,8 +83,24 @@
         width:100%;
         background:$grey-lighter;
         text-align:left;
-        padding:$base-spacing-unit;
-        color:$grey-dark;
-        font-size:$p;
+        line-height:$header__height--mobile;
+        padding:0 $base-spacing-unit * 2;
+        height:$header__height--mobile;
+        position:relative;
+        box-shadow:0 0 2px $grey inset;
+        @media #{$medium-up} {
+            height:$header__height;
+            line-height:$header__height;
+        }
+        .icon {
+            position:absolute;
+            top:50%;
+            right:0;
+            padding:$base-spacing-unit;
+            transform:translate(-50%, -50%);
+        }
+        &:hover {
+            background:rgba($grey-lighter, 0.5);
+        }
     }
     }

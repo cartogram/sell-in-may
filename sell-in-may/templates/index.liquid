@@ -1,4 +1,4 @@
-<section class="section--intro push-double--bottom soft-double">
+<section class="intro push-double--top push-double--bottom soft">
     <div class="row">
         <div class="columns small-12 text-left">
             {% if settings.homepage != blank %}
@@ -9,22 +9,26 @@
     </div>
 </section>
 
-<div class="row">
-    {% assign grid_item_width = 'small-12 medium-6' %}
-    {% for product in collections.frontpage.products limit:2 %}
-        {% include 'product-grid-item' %}
-    {% endfor %}
+<section class="section push-double--bottom soft">
+    <div class="row collapse">
+        {% assign grid_item_width = 'small-12 medium-6' %}
+        {% for product in collections.frontpage.products limit:2 %}
+            {% include 'product-grid-item' %}
+        {% endfor %}
 
-</div>
-
-<div class="row">
-    <div class="columns small-12">
-        <a class="link--bar">{{ 'home_page.sections.frontpage_title' | t}}</a>
     </div>
-</div>
 
+    <div class="row collapse">
+        <div class="columns small-12">
+            <a class="link--bar gamma">{{ 'home_page.sections.frontpage_title' | t}}
+                <i class="icon icon--milli"><svg class="svg--arrow-right"><use xlink:href="#arrow-right" /></svg></i>
+            </a>
+        </div>
+    </div>
+</section>
 
-<div class="row">
+<section class="section push-double--bottom soft">
+    <div class="row collapse">
 
     {% comment %}
     Show five collections, unless it's 'frontpage'.
@@ -94,11 +98,14 @@
     {% endif %}
 
 </div>
-<div class="row">
+<div class="row collapse">
     <div class="columns small-12">
-        <a class="btn btn--full">{{ 'home_page.sections.featured_title' | t }}</a>
+        <a class="link--bar gamma">All Collections
+            <i class="icon icon--milli"><svg class="svg--arrow-right"><use xlink:href="#arrow-right" /></svg></i>
+        </a>
     </div>
 </div>
+</section>
 
 
 {% comment %}
@@ -108,12 +115,12 @@ Since we're not on the blog template, we need to define the blog
 handle we want to focus on. For this example we'll use the default 'news',
 but you can create a blog page-specific content if you want.
 {% endcomment %}
-<h2>{{ 'home_page.sections.news_title' | t }}</h2>
-
-<div class="grid">
+<section class="section push-double--bottom soft">
+    <div class="row collapse">
     {% for article in blogs['news'].articles limit:3 %}
 
-    <div class="columns large--one-third">
+    <div class="columns medium-3 small-12 text-left">
+
 
         <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>
         <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
@@ -150,3 +157,11 @@ but you can create a blog page-specific content if you want.
 
     {% endfor %}
 </div>
+<div class="row collapse">
+    <div class="columns small-12">
+        <a class="link--bar gamma">{{ 'home_page.sections.news_title' | t }}
+            <i class="icon icon--milli"><svg class="svg--arrow-right"><use xlink:href="#arrow-right" /></svg></i>
+        </a>
+    </div>
+</div>
+</section>
